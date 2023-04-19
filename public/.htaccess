@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteBase /
+
+# Serve static files
+RewriteRule ^static/(.*)$ /ecommerce/static/$1 [L]
+RewriteRule ^favicon.ico$ /ecommerce/favicon.ico [L]
+
+# Serve index.html for all other requests
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /ecommerce/index.html [L]
