@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import GetAll from '../components/data_fetching/getall'
 import Buscador from '../components/buscador';
 
@@ -8,7 +8,9 @@ const VerTodo = () => {
     <div className='container d-flex flex-column flex-wrap justify-content-center align-items-center'>
         <Buscador setBuscar={setBuscar} />
         <div className='container-fluid d-flex flex-row flex-wrap justify-content-center align-items-center'>
-         <GetAll buscar={buscar}/>
+        <Suspense fallback={<i className="bi bi-arrow-clockwise text-dark">cargando...</i>} >
+          <GetAll buscar={buscar}/>
+         </Suspense>
         </div>
     </div>
   )

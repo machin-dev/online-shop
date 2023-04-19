@@ -5,14 +5,17 @@ import { Values } from '../../default/default_values';
 
 const GetAll = ({buscar}) => {
     const [list,setList]=useState();
+   
 
-    useEffect(()=>{
-        axios.get(Values.url+'getofertas.php')
+    useEffect(()=>{       
+         axios.get(Values.url+'getofertas.php')
         .then((res)=>{return res.data})
-        .then((response)=>{setList(response)});
-        console.log(Values.url)
+        .then((response)=>{setList(response)});          
+       
     },[])
   return (
+    <>   
+    {
     list?
     list.data.filter((e)=>(e.descripcion.toString().toLowerCase().includes(buscar.toLowerCase()))).map((l)=>(
         <div className="card m-2 card-border shadow" key={l.id} style={{width:('300px'), height:('520px')}}>
@@ -49,6 +52,8 @@ const GetAll = ({buscar}) => {
             </div>   
         </div>
     )):<p className='text-danger'>'Sorry,we have some trouble to get de informacion, try it later'</p>
+    
+    }</>
   )
 }
 

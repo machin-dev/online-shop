@@ -7,16 +7,17 @@ import { Values } from '../../default/default_values';
 
 const GetCategorias =   () => {
     const [list,setList]= useState();
+   
     useEffect(()=>{
-       axios.get(Values.url+'getcategories.php') 
+     
+       axios.get('https://ts-conectate.000webhostapp.com/bd_request/get/getCategories.php') 
        .then((res)=>{return res.data})
-       .then((response)=>{setList(response)})
-      
-        
+       .then((response)=>{setList(response)})        
     },[])
   return (
+    <>
     
-        list ?
+        {list ?
            list.data.map((l)=>(
             <Link to={`/${l.id}`} className="btn"  key={l.id}>
             <div className="card m-2 p-1  card-border shadow"  style={{width:('200px'), height:('300px')}}>
@@ -35,6 +36,7 @@ const GetCategorias =   () => {
          :
          <p className='text-danger'>'Sorry,we have some trouble to get de informacion, try it later'</p>
     
+                }     </>
   )
 }
 

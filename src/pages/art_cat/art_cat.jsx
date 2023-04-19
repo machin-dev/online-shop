@@ -7,19 +7,23 @@ import { Values } from '../../default/default_values';
 const ArtCat = () => {
     const [list,setList]=useState();
     const [categ,setCateg]=useState();
+   
     const cat=useParams();
     useEffect(()=>{
+        
         axios.get(Values.url+'getofertas.php?id='+cat.id)
         .then((res)=>{return res.data})
         .then((response)=>{setList(response)});
-        axios.get(Values.url+'getCategories.php?id='+cat.id)
+        axios.get(Values.url+'getcategories.php?id='+cat.id)
         .then((res)=>{return res.data})
-        .then((response)=>{setCateg(response)})
+        .then((response)=>{setCateg(response)});
+        
        
 },[])
   return (
     <div className='container'>
-       {
+        
+       {        
         categ ? 
         <h4 className='bg-primary p-2 m-2 rounded-2 text-center'>
             {categ.data[0].nombre}
