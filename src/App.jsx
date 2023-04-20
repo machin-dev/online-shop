@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import NavBAr from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
@@ -10,11 +9,13 @@ import Nuevo from './pages/nuevo';
 import './style/mystyle.css';
 import ArtCat from './pages/art_cat/art_cat';
 import ContactoPage from './pages/contacto';
+import Tests from './tests/tests';
+import { Toast } from 'bootstrap';
 
 function App() {
   const [count, setCount] = useState(0)
 
-  return (
+  return (    
     <Router basename="">
       <div className="container-fluid border d-flex flex-row flex-wrap justify-content-center">
       <NavBAr /> 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/deuso" element={<DeUsoPage />} />
         <Route path="/nuevo" element={<Nuevo />} />
         <Route path="/contacto" element={<ContactoPage />} />
+        <Route path="/tests" element={<Tests />} />
       </Routes>    
     </div>
     </Router>

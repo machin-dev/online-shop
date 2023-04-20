@@ -1,24 +1,25 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Values } from '../../default/default_values';
+
+import { useFetch } from '../../useFetch';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
 const GetCategorias =   () => {
-    const [list,setList]= useState();
-   
-    useEffect(()=>{
-     
-       axios.get('https://ts-conectate.000webhostapp.com/bd_request/get/getCategories.php') 
-       .then((res)=>{return res.data})
-       .then((response)=>{setList(response)})        
-    },[])
-  return (
+  const {list,loading,error}=useFetch('getcategories.php');
+
+  error && toast.error(error.message)
+  return ( 
     <>
-    
-        {list ?
-           list.data.map((l)=>(
+        <ToastContainer />
+        { loading && <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                 </div>
+    }
+        {
+           list?.data.map((l)=>(
             <Link to={`/${l.id}`} className="btn"  key={l.id}>
             <div className="card m-2 p-1  card-border shadow"  style={{width:('200px'), height:('300px')}}>
                 <img className="card-img-top" src={`img/cat_img/${l.nombre}.jpg`} alt={l.nombre}
@@ -33,11 +34,10 @@ const GetCategorias =   () => {
             </div>
             </Link>
            ))
-         :
-         <p className='text-danger'>'Sorry,we have some trouble to get de informacion, try it later'</p>
-    
-                }     </>
+        }
+    </> 
   )
+  
 }
 
 export default GetCategorias

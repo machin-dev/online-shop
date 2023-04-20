@@ -1,19 +1,22 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react'
 import Contacto from '../contacto';
-import { Values } from '../../default/default_values';
+import { useFetch } from '../../useFetch';
+import { ToastContainer } from 'react-toastify';
 
 const GetUso = () => {
-    const [list,setList]=useState();
-
-    useEffect(()=>{
-        axios.get(Values.url+'getdeuso.php')
-        .then((res)=>{return res.data})
-        .then((response)=>{setList(response)})
-    },[])
+    const {list,loading,error}=useFetch('getdeuso.php');
+    error && toast.error(error.message)
   return (
-    list ?
-     list.data.map((l)=>(
+    <>
+    <ToastContainer />
+    { 
+            loading && <div className="spinner-border text-primary" role="status">
+                         <span className="visually-hidden">Loading...</span>
+                     </div>
+         }
+    {
+    list ?.data.map((l)=>(
         <div className="card m-2 card-border shadow" key={l.id} style={{width:('300px'), height:('520px')}}>
         <div className='w-100 bg-dark ' style={{height:('40%')}}>
          <img className="card-img-top" src={`img/art_img/${l.url_0}.jpg`} alt="Title"
@@ -45,7 +48,8 @@ const GetUso = () => {
         </div>   
     </div>
      ))
-     :<p className='text-danger'>'Sorry,we have some trouble to get de informacion, try it later'</p>
+    }
+     </>
   )
 }
 

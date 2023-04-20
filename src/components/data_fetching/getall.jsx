@@ -1,27 +1,29 @@
-import axios from 'axios';
+
 import React, { useEffect, useState } from 'react';
 import Contacto from '../contacto';
-import { Values } from '../../default/default_values';
+
+import { useFetch } from '../../useFetch';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const GetAll = ({buscar}) => {
-    const [list,setList]=useState();
-   
+   const {list,loading,error}=useFetch('getofertas.php');
 
-    useEffect(()=>{       
-         axios.get(Values.url+'getofertas.php')
-        .then((res)=>{return res.data})
-        .then((response)=>{setList(response)});          
-       
-    },[])
-  return (
-    <>   
+   error && toast.error(error.message);
+  return (  
+    <> 
+    <ToastContainer />
+    { loading && <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                 </div>
+    }
+   
     {
-    list?
-    list.data.filter((e)=>(e.descripcion.toString().toLowerCase().includes(buscar.toLowerCase()))).map((l)=>(
+    list ?.data.filter((e)=>(e.descripcion.toString().toLowerCase().includes(buscar.toLowerCase()))).map((l)=>(
         <div className="card m-2 card-border shadow" key={l.id} style={{width:('300px'), height:('520px')}}>
             <div className='w-100 bg-dark position-relative' style={{height:('40%')}}>  
              <span className='badge text-bg-primary position-absolute top-0 end-0'>{l.precio}</span>
-             <img className="card-img-top rounded-0" src={`img/art_img/${l.url_0}.jpg`} alt="Title"
+             <img className="card-img-top rounded-0 " src={`img/art_img/${l.url_0}.jpg`} alt="Title"
              onError={(e)=> e.currentTarget.src='img/art_img/default.jpg'} />
           
             </div>
@@ -50,10 +52,11 @@ const GetAll = ({buscar}) => {
             <div className='card-footer m-0'>
              <Contacto />
             </div>   
-        </div>
-    )):<p className='text-danger'>'Sorry,we have some trouble to get de informacion, try it later'</p>
-    
-    }</>
+           </div>
+        )
+    )
+    }
+    </>
   )
 }
 
