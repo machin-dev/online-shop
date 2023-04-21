@@ -16,7 +16,7 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (    
-    <Router basename="">
+    <Router basename="/ecommerce/">
       <div className="container-fluid  d-flex flex-row flex-wrap justify-content-center">
       <NavBAr /> 
       <Routes>
