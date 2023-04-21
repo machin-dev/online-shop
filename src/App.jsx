@@ -17,7 +17,7 @@ function App() {
 
   return (    
     <Router basename="">
-      <div className="container-fluid border d-flex flex-row flex-wrap justify-content-center">
+      <div className="container-fluid  d-flex flex-row flex-wrap justify-content-center">
       <NavBAr /> 
       <Routes>
         <Route index element={<Home />} />
@@ -29,8 +29,7 @@ function App() {
         <Route path="/tests" element={<Tests />} />
       </Routes>    
     </div>
-    </Router>
-    
+    </Router>    
   )
 }
 

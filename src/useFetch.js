@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export function useFetch(endpoint) {
+   
 const [list,setList]=useState();   
 const [loading,setLoading]=useState(true);
 const [error, setError]=useState();
@@ -16,6 +17,7 @@ useEffect(()=>{
     .catch((error)=>setError(error))
     .finally(()=>setLoading(false));          
 }, 500);
+
 },[]);
 
 return {list,loading,error};
