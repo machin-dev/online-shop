@@ -6,7 +6,7 @@ export function useFetch(endpoint) {
 const [list,setList]=useState();   
 const [loading,setLoading]=useState(true);
 const [error, setError]=useState();
-const url='http://localhost:8012/ecommerce/bd_request/get/';
+const url='https://ts-conectate.000webhostapp.com/bd_request/get/';
 
 useEffect(()=>{ 
     setLoading(true);   
